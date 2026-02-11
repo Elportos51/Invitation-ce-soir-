@@ -13,11 +13,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:linear-gradient(135deg,#ff6a88,#ff99ac,#ffc3a0);
+background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffb199);
 overflow:hidden;
 }
 
-/* Fond cœurs animé */
+/* Fond coeurs animés */
 .bg{
 position:fixed;
 width:100%;
@@ -27,29 +27,28 @@ overflow:hidden;
 }
 .bg span{
 position:absolute;
-opacity:0.18;
-animation:float 8s linear infinite;
+opacity:0.15;
+animation:float 10s linear infinite;
 }
 @keyframes float{
-0%{transform:translateY(100vh) scale(1);}
-100%{transform:translateY(-10vh) scale(1.4);}
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
 }
 
-/* Carte */
 .card{
 position:relative;
 z-index:1;
 background:white;
 padding:30px 20px;
-border-radius:25px;
+border-radius:28px;
 width:90%;
 max-width:380px;
 text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.2);
+box-shadow:0 20px 50px rgba(0,0,0,0.25);
 }
 
 h1{
-font-size:20px;
+font-size:22px;
 margin-bottom:25px;
 color:#ff2d55;
 }
@@ -75,7 +74,7 @@ background:#ff2d55;
 color:white;
 left:50%;
 bottom:0;
-transform:translateX(-50%);
+transform:translateX(-50%) scale(1);
 }
 
 #no{
@@ -99,7 +98,7 @@ color:#666;
 <div class="bg" id="bg"></div>
 
 <div class="card">
-<h1>Veux-tu être ma Valentine ? 💘</h1>
+<h1>Veux-tu être ma Claratine ? 💘</h1>
 
 <div class="area" id="area">
 <button id="no">Non 😏</button>
@@ -118,17 +117,17 @@ const area=document.getElementById("area");
 let refus=0;
 let scale=1;
 
-/* Création fond cœurs */
+/* Fond coeurs */
 for(let i=0;i<35;i++){
 let heart=document.createElement("span");
 heart.innerHTML="💖";
 heart.style.left=Math.random()*100+"%";
-heart.style.fontSize=(14+Math.random()*22)+"px";
-heart.style.animationDuration=(6+Math.random()*6)+"s";
+heart.style.fontSize=(14+Math.random()*20)+"px";
+heart.style.animationDuration=(6+Math.random()*8)+"s";
 document.getElementById("bg").appendChild(heart);
 }
 
-/* NON bouge dans la zone uniquement */
+/* Déplacement du NON autour de la question */
 function moveNo(){
 refus++;
 counter.innerHTML="Tentatives de refus : "+refus+" 😈";
@@ -150,7 +149,7 @@ noBtn.addEventListener("mouseover",moveNo);
 noBtn.addEventListener("touchstart",moveNo);
 noBtn.addEventListener("click",moveNo);
 
-/* Explosion massive */
+/* Explosion géante */
 function bigExplosion(){
 for(let i=0;i<220;i++){
 let heart=document.createElement("div");
@@ -162,7 +161,7 @@ heart.style.fontSize=(20+Math.random()*35)+"px";
 heart.style.pointerEvents="none";
 
 let angle=Math.random()*2*Math.PI;
-let distance=Math.random()*500+100;
+let distance= Math.random()*500 + 100;
 
 let x=Math.cos(angle)*distance;
 let y=Math.sin(angle)*distance;
@@ -179,21 +178,28 @@ setTimeout(()=>heart.remove(),2000);
 }
 }
 
-/* Clique OUI */
+/* Quand OUI */
 yesBtn.addEventListener("click",function(){
 
 bigExplosion();
 
 setTimeout(()=>{
+
 document.body.innerHTML=`
 <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff6a88,#ff99ac,#ffc3a0);font-family:-apple-system;text-align:center;padding:20px;overflow:hidden;">
-<div style="background:white;padding:35px;border-radius:25px;max-width:380px;box-shadow:0 15px 40px rgba(0,0,0,0.2);">
+<div style="background:white;padding:35px;border-radius:28px;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,0.25);">
 <h1 style="color:#ff2d55;">C’est officiel 😍</h1>
-<p style="font-size:19px;margin-top:20px;">
+
+<p style="font-size:19px;margin-top:20px;line-height:1.4;">
 Clara… 💕<br><br>
-Ce soir, 20h30.<br>
+Prépare-toi pour 20h30.<br>
+Un repas rien que pour nous.
+</p>
+
+<p style="margin-top:15px;font-size:17px;">
 Je serai en bas de chez toi.
 </p>
+
 <p style="font-size:13px;margin-top:25px;font-style:italic;color:#555;">
 C’est impossible d’annuler… c’est déjà réservé 😼😉🧡
 </p>
