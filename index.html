@@ -17,7 +17,7 @@ background:linear-gradient(135deg,#ff6a88,#ff99ac,#ffc3a0);
 overflow:hidden;
 }
 
-/* Fond cœurs */
+/* Fond cœurs animé */
 .bg{
 position:fixed;
 width:100%;
@@ -27,7 +27,7 @@ overflow:hidden;
 }
 .bg span{
 position:absolute;
-opacity:0.2;
+opacity:0.18;
 animation:float 8s linear infinite;
 }
 @keyframes float{
@@ -35,7 +35,7 @@ animation:float 8s linear infinite;
 100%{transform:translateY(-10vh) scale(1.4);}
 }
 
-/* Carte centrale */
+/* Carte */
 .card{
 position:relative;
 z-index:1;
@@ -119,7 +119,7 @@ let refus=0;
 let scale=1;
 
 /* Création fond cœurs */
-for(let i=0;i<30;i++){
+for(let i=0;i<35;i++){
 let heart=document.createElement("span");
 heart.innerHTML="💖";
 heart.style.left=Math.random()*100+"%";
@@ -128,7 +128,7 @@ heart.style.animationDuration=(6+Math.random()*6)+"s";
 document.getElementById("bg").appendChild(heart);
 }
 
-/* NON bouge uniquement dans la zone */
+/* NON bouge dans la zone uniquement */
 function moveNo(){
 refus++;
 counter.innerHTML="Tentatives de refus : "+refus+" 😈";
@@ -150,25 +150,43 @@ noBtn.addEventListener("mouseover",moveNo);
 noBtn.addEventListener("touchstart",moveNo);
 noBtn.addEventListener("click",moveNo);
 
-/* Explosion + message final */
-yesBtn.addEventListener("click",function(){
-
-/* Explosion cœurs */
-for(let i=0;i<80;i++){
+/* Explosion massive */
+function bigExplosion(){
+for(let i=0;i<220;i++){
 let heart=document.createElement("div");
 heart.innerHTML="💖";
 heart.style.position="fixed";
-heart.style.left=Math.random()*100+"%";
-heart.style.top=Math.random()*100+"%";
-heart.style.fontSize=(20+Math.random()*25)+"px";
-heart.style.animation="float 3s ease-out forwards";
+heart.style.left="50%";
+heart.style.top="50%";
+heart.style.fontSize=(20+Math.random()*35)+"px";
+heart.style.pointerEvents="none";
+
+let angle=Math.random()*2*Math.PI;
+let distance=Math.random()*500+100;
+
+let x=Math.cos(angle)*distance;
+let y=Math.sin(angle)*distance;
+
+heart.style.transition="transform 1.8s ease-out, opacity 2s";
 document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),3000);
+
+setTimeout(()=>{
+heart.style.transform=`translate(${x}px, ${y}px) scale(1.5)`;
+heart.style.opacity="0";
+},10);
+
+setTimeout(()=>heart.remove(),2000);
 }
+}
+
+/* Clique OUI */
+yesBtn.addEventListener("click",function(){
+
+bigExplosion();
 
 setTimeout(()=>{
 document.body.innerHTML=`
-<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff6a88,#ff99ac,#ffc3a0);font-family:-apple-system;text-align:center;padding:20px;">
+<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(135deg,#ff6a88,#ff99ac,#ffc3a0);font-family:-apple-system;text-align:center;padding:20px;overflow:hidden;">
 <div style="background:white;padding:35px;border-radius:25px;max-width:380px;box-shadow:0 15px 40px rgba(0,0,0,0.2);">
 <h1 style="color:#ff2d55;">C’est officiel 😍</h1>
 <p style="font-size:19px;margin-top:20px;">
@@ -182,7 +200,10 @@ C’est impossible d’annuler… c’est déjà réservé 😼😉🧡
 </div>
 </div>
 `;
-},700);
+
+setTimeout(bigExplosion,300);
+
+},800);
 
 });
 </script>
